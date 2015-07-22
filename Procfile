@@ -1,1 +1,1 @@
-web: elixir --name phoenix --cookie cookie -pa _build/prod/consolidated -S mix phoenix.server
+web: elixir --name phoenix --cookie webcookie -S mix phoenix.server
