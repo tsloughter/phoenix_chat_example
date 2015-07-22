@@ -8,7 +8,7 @@ use Mix.Config
 # meaningful, we use this information when generating URLs.
 config :chat, Chat.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: System.get_env("HOST"), port: 80]
+  url: [host: "ts-phoenix-chat.herokuapp.com", port: 80]
 
 # ## SSL Support
 #
