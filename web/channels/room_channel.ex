@@ -48,7 +48,9 @@ defmodule Chat.RoomChannel do
       _ ->
         :nothing
     end
-    broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
+    me = :erlang.atom_to_binary(:erlang.node, :utf8)
+    user = msg["user"] <> ":" <> me
+    broadcast! socket, "new:msg", %{user: user, body: msg["body"]}
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 end

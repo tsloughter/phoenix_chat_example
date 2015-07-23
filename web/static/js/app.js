@@ -28,9 +28,12 @@ class App {
       }
     })
 
-    chan.on("new:msg", msg => {
-      $messages.append(this.messageTemplate(msg))
-      scrollTo(0, document.body.scrollHeight)
+      chan.on("new:msg", msg => {
+          $messages.append(this.messageTemplate(msg))
+          $messages.listview('refresh');
+
+          // Scroll to bottom of page
+          $("#messages-wrapper").animate({ scrollTop: $("#messages-wrapper").scrollHeight }, 'slow');
     })
 
     chan.on("user:entered", msg => {
@@ -45,7 +48,7 @@ class App {
     let username = this.sanitize(msg.user || "anonymous")
     let body     = this.sanitize(msg.body)
 
-    return(`<p><a href='#'>[${username}]</a>&nbsp; ${body}</p>`)
+    return(`<li><span class='username'>[${username}]</span>&nbsp; ${body}</li>`)
   }
 
 }

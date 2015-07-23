@@ -1,4 +1,7 @@
-<div id="messages" class="container">
+<div id="wrapper">
+<div id="messages-wrapper" class="container">
+  <ul id="messages">
+  </ul>
 </div>
 <div id="footer">
   <div class="container">
@@ -14,4 +17,5 @@
       </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
   </div>
+</div>
 </div>

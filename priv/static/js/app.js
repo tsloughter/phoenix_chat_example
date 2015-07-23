@@ -1319,7 +1319,10 @@ var App = (function () {
 
         chan.on("new:msg", function (msg) {
           $messages.append(_this.messageTemplate(msg));
-          scrollTo(0, document.body.scrollHeight);
+          $messages.listview("refresh");
+
+          // Scroll to bottom of page
+          $("#messages-wrapper").animate({ scrollTop: $("#messages-wrapper").scrollHeight }, "slow");
         });
 
         chan.on("user:entered", function (msg) {
@@ -1338,7 +1341,7 @@ var App = (function () {
         var username = this.sanitize(msg.user || "anonymous");
         var body = this.sanitize(msg.body);
 
-        return "<p><a href='#'>[" + username + "]</a>&nbsp; " + body + "</p>";
+        return "<li><span class='username'>[" + username + "]</span>&nbsp; " + body + "</li>";
       }
     }
   });
