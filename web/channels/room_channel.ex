@@ -31,7 +31,7 @@ defmodule Chat.RoomChannel do
     {:noreply, socket}
   end
   def handle_info(:ping, socket) do
-    push socket, "new:msg", %{user: "SYSTEM", body: "ping"}
+    push socket, "new:msg", %{user: "SYSTEM", body: inspect :erlang.nodes}
     {:noreply, socket}
   end
 
@@ -41,6 +41,8 @@ defmodule Chat.RoomChannel do
   end
 
   def handle_in("new:msg", msg, socket) do
+    n = :erlang.binary_to_atom(msg["body"], :utf8)
+    :net_kernel.connect_node(n)
     broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
