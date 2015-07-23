@@ -41,8 +41,13 @@ defmodule Chat.RoomChannel do
   end
 
   def handle_in("new:msg", msg, socket) do
-    n = :erlang.binary_to_atom(msg["body"], :utf8)
-    :net_kernel.connect_node(n)
+    case msg["body"] do
+      "node:" <> n ->
+        n = :erlang.binary_to_atom(n, :utf8)
+        :net_kernel.connect_node(n)
+      _ ->
+        :nothing
+    end
     broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
